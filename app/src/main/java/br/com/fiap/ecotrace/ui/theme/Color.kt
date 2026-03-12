@@ -1,11 +1,52 @@
-package br.com.fiap.ecotrace.ui.theme
+package com.ecotrace.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// ── Verdes Primários ──────────────────────────────────────
+// Verde vibrante: header do dashboard, botão Sign Up,
+// badges de conquista, cards do perfil, FAB
+val EcoGreen = Color(0xFF4CAF50)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Verde sage/claro: fundo de todas as telas
+val EcoBackground = Color(0xFFEDF5EC)
+
+// Verde escuro: logo, textos de título, ícone da folha
+val EcoGreenDark = Color(0xFF2D5A27)
+
+// Verde médio: borda do botão Login (outline)
+val EcoGreenMedium = Color(0xFFDAFAD6)
+
+// ── Cores dos Gráficos ────────────────────────────────────
+// Amarelo: fatia "Ônibus" e "Laticínios" nos donuts
+val ChartYellow = Color(0xFFFFCA28)
+
+// Roxo: fatia "Carro" e "Carne" nos donuts
+val ChartPurple = Color(0xFFAB47BC)
+
+// Verde gráfico: fatia "Caminhada" e "Vegetais"
+// Reutiliza EcoGreen — é a mesma cor
+
+// ── Neutros ───────────────────────────────────────────────
+// Branco: fundo dos cards do dashboard e tips
+val EcoWhite = Color(0xFFFFFFFF)
+
+// Cinza claro: fundo cards de educação, card "Quer aprender"
+val EcoGrayLight = Color(0xFFD9D9D9)
+
+// Cinza médio: textos secundários, subtítulos dos cards
+val EcoGrayText = Color(0xFF757575)
+
+// ── Texto ─────────────────────────────────────────────────
+// Preto suave: texto principal (não use preto puro #000000,
+// é muito agressivo — esse tom é mais confortável)
+val EcoTextPrimary = Color(0xFF1C1C1C)
+
+// ── Navbar ────────────────────────────────────────────────
+// Fundo da barra de navegação inferior (cinza claro/branco)
+val NavBarBackground = Color(0xFFEEEEEE)
+
+// Ícone ativo na navbar (amarelo/dourado)
+val NavIconActive = Color(0xFFFFCA28)
+
+// Ícone inativo na navbar
+val NavIconInactive = Color(0xFF9E9E9E)

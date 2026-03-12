@@ -1,43 +1,64 @@
-package br.com.fiap.ecotrace.ui.theme
+package com.ecotrace.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
+// ── Esquema Claro (o que suas telas mostram) ──────────────
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    // A cor principal do app — botões primários, FAB, badges
+    primary = EcoGreen,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    // Texto/ícone sobre elementos "primary"
+    onPrimary = EcoWhite,
+
+    // Variação mais escura do primary — hover, pressed states
+    primaryContainer = EcoGreenDark,
+    onPrimaryContainer = EcoWhite,
+
+    // Cor secundária — detalhes, chips, elementos de apoio
+    secondary = ChartYellow,
+    onSecondary = EcoTextPrimary,
+
+    // Fundo geral de todas as telas
+    background = EcoBackground,
+    onBackground = EcoTextPrimary,
+
+    // Fundo de cards e superfícies elevadas
+    surface = EcoWhite,
+    onSurface = EcoTextPrimary,
+
+    // Variação de surface para cards com fundo cinza
+    surfaceVariant = EcoGrayLight,
+    onSurfaceVariant = EcoGrayText,
+
+    // Contorno de botões outline (botão Login)
+    outline = EcoGreenMedium,
 )
 
+// ── Esquema Escuro (opcional no MVP, mas boa prática) ─────
+private val DarkColorScheme = darkColorScheme(
+    primary = EcoGreenMedium,
+    onPrimary = EcoGreenDark,
+    background = Color(0xFF121812), // Verde quase preto
+    onBackground = EcoWhite,
+    surface = Color(0xFF1E2D1E),
+    onSurface = EcoWhite,
+)
+
+// ── Composable principal do tema ──────────────────────────
 @Composable
 fun EcoTraceTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -52,7 +73,7 @@ fun EcoTraceTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = EcoTraceTypography, // vem do Type.kt
         content = content
     )
 }
