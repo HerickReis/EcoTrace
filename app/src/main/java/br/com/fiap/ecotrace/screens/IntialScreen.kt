@@ -27,7 +27,10 @@ import br.com.fiap.ecotrace.R
 import com.ecotrace.ui.theme.EcoTraceTheme
 
 @Composable
-fun InitialScreen(modifier: Modifier = Modifier) {
+fun InitialScreen(
+    onLoginClick: () -> Unit,
+    onSignupClick: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +58,7 @@ fun InitialScreen(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(100.dp))
 
             Button(
-                onClick = {},
+                onClick = onLoginClick,
                 colors = ButtonDefaults
                     .buttonColors(
                         containerColor = MaterialTheme.colorScheme.outline,
@@ -80,7 +83,7 @@ fun InitialScreen(modifier: Modifier = Modifier) {
                 .height(25.dp))
 
             Button(
-                onClick = {},
+                onClick = onSignupClick,
                 colors = ButtonDefaults
                     .buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
@@ -106,7 +109,10 @@ fun InitialScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun InitialScreenPreview() {
     EcoTraceTheme() {
-        InitialScreen()
+        InitialScreen(
+            onLoginClick = {},
+            onSignupClick = {},
+        )
     }
     
 }

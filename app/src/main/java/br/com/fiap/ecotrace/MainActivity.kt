@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import br.com.fiap.ecotrace.screens.InitialScreen
+import androidx.navigation.compose.rememberNavController
+import br.com.fiap.ecotrace.navigation.AppNavGraph
 import com.ecotrace.ui.theme.EcoTraceTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +14,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EcoTraceTheme {
-                InitialScreen()
+                val navController = rememberNavController()
+                AppNavGraph(navController = navController)
             }
         }
     }
