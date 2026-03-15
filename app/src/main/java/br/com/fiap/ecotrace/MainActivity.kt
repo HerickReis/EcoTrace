@@ -15,7 +15,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             EcoTraceTheme {
                 val navController = rememberNavController()
-                AppNavGraph(navController = navController)
+                AppNavGraph(
+                    navController = navController,
+                    context = this
+                )
             }
         }
     }

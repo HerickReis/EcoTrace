@@ -10,7 +10,6 @@ import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
 import br.com.fiap.ecotrace.R
 
-// ── Configuração do Google Fonts ──────────────────────────
 val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
@@ -20,26 +19,22 @@ val provider = GoogleFont.Provider(
 val QuicksandFamily = FontFamily(
     Font(googleFont = GoogleFont("Quicksand"),
         fontProvider = provider,
-        weight = FontWeight.Light),      // 300
+        weight = FontWeight.Light),
     Font(googleFont = GoogleFont("Quicksand"),
         fontProvider = provider,
-        weight = FontWeight.Normal),     // 400
+        weight = FontWeight.Normal),
     Font(googleFont = GoogleFont("Quicksand"),
         fontProvider = provider,
-        weight = FontWeight.Medium),     // 500
+        weight = FontWeight.Medium),
     Font(googleFont = GoogleFont("Quicksand"),
         fontProvider = provider,
-        weight = FontWeight.SemiBold),   // 600
+        weight = FontWeight.SemiBold),
     Font(googleFont = GoogleFont("Quicksand"),
         fontProvider = provider,
-        weight = FontWeight.Bold),       // 700
+        weight = FontWeight.Bold),
 )
-
-// ── Tipografia mapeada às suas telas ─────────────────────
 val EcoTraceTypography = Typography(
 
-    // "Olá Letycia" — saudação no header
-    // "Conquistas", "Ultimas informações adicionadas"
     headlineMedium = TextStyle(
         fontFamily = QuicksandFamily,
         fontWeight = FontWeight.Bold,
@@ -47,7 +42,6 @@ val EcoTraceTypography = Typography(
         lineHeight = 28.sp
     ),
 
-    // Títulos dos cards: "Emissão CO₂ por tipo de transporte"
     titleLarge = TextStyle(
         fontFamily = QuicksandFamily,
         fontWeight = FontWeight.SemiBold,
@@ -55,7 +49,6 @@ val EcoTraceTypography = Typography(
         lineHeight = 22.sp
     ),
 
-    // Título menor: "Transporte", "Alimento" nos cards do perfil
     titleMedium = TextStyle(
         fontFamily = QuicksandFamily,
         fontWeight = FontWeight.SemiBold,
@@ -63,8 +56,6 @@ val EcoTraceTypography = Typography(
         lineHeight = 20.sp
     ),
 
-    // Corpo de texto: parágrafos dos cards, texto de equivalência
-    // "Total de emissão, 372kg/mês, isso equivale a..."
     bodyLarge = TextStyle(
         fontFamily = QuicksandFamily,
         fontWeight = FontWeight.Normal,
@@ -72,7 +63,7 @@ val EcoTraceTypography = Typography(
         lineHeight = 20.sp
     ),
 
-    // Textos secundários: "Veiculo: Carro", "Distância: 14km"
+
     bodyMedium = TextStyle(
         fontFamily = QuicksandFamily,
         fontWeight = FontWeight.Normal,
@@ -80,8 +71,6 @@ val EcoTraceTypography = Typography(
         lineHeight = 18.sp
     ),
 
-    // Labels: legendas dos gráficos ("Ônibus 40%", "Carro 35%")
-    // Labels da navbar
     labelMedium = TextStyle(
         fontFamily = QuicksandFamily,
         fontWeight = FontWeight.Medium,
@@ -89,7 +78,6 @@ val EcoTraceTypography = Typography(
         lineHeight = 16.sp
     ),
 
-    // Botões: "Login", "Sign up", "Leia mais aqui"
     labelLarge = TextStyle(
         fontFamily = QuicksandFamily,
         fontWeight = FontWeight.SemiBold,

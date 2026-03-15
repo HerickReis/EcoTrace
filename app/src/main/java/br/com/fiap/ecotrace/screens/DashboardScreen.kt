@@ -18,22 +18,31 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import br.com.fiap.ecotrace.components.BottomNavBar
 import br.com.fiap.ecotrace.components.DonutChartCard
-import br.com.fiap.ecotrace.model.MockEmissionData
+import br.com.fiap.ecotrace.components.EmissionRecord
+import br.com.fiap.ecotrace.model.EmissionDataMapper
 import com.ecotrace.navigation.Destination
 
 
 @Composable
 fun DashboardScreen(
-    onNavigate: (String) -> Unit   // navegação para qualquer rota
+    records: List<EmissionRecord>,
+    onNavigate: (String) -> Unit,
+    userName: String
 ) {
+    val transportData = remember(records) {
+        EmissionDataMapper.toTransportData(records)
+    }
+    val foodData = remember(records) {
+        EmissionDataMapper.toFoodData(records)
+    }
+
     Scaffold(
-        // Scaffold é o layout base do Material 3
-        // Gerencia automaticamente o espaço da bottomBar
         bottomBar = {
             BottomNavBar(
                 currentRoute = Destination.DashboardScreen.route,
@@ -45,49 +54,53 @@ fun DashboardScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
+                .padding(innerPadding)
         ) {
-            Column(
+            // Header — igual antes
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(innerPadding) // ← aqui estava faltando
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.primary)
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Person,
-                            contentDescription = "Avatar",
-                            modifier = Modifier.size(40.dp),
-                            tint = MaterialTheme.colorScheme.onPrimary
-                        )
-                        Text(
-                            text = "Olá, Letycia",
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null,
+                        modifier = Modifier.size(40.dp),
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                    Text(
+                        text = "Olá, $userName ",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
                 }
+            }
 
+            if (records.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Nenhum dado ainda.\nRegistre suas atividades para ver seu impacto!",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                    )
+                }
+            } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    item {
-                        DonutChartCard(emissionData = MockEmissionData.transport)
-                    }
-                    item {
-                        DonutChartCard(emissionData = MockEmissionData.food)
-                    }
+                    item { DonutChartCard(emissionData = transportData) }
+                    item { DonutChartCard(emissionData = foodData) }
                 }
             }
         }

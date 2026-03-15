@@ -24,8 +24,6 @@ fun RegisterScreen(onNavigate: (String) -> Unit,
                    records: List<EmissionRecord>,
                    onAddRecord: (EmissionRecord) -> Unit,
                    ) {
-
-    var records by remember { mutableStateOf(listOf<EmissionRecord>()) }
     var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -58,9 +56,7 @@ fun RegisterScreen(onNavigate: (String) -> Unit,
         ) {
             ResumeSummaryCards(records = records)
 
-            // Histórico de registros
             if (records.isEmpty()) {
-                // Estado vazio — importante para UX
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -89,7 +85,7 @@ fun RegisterScreen(onNavigate: (String) -> Unit,
                 onDismiss = { showDialog = false },
                 onConfirm = { newRecord ->
                     // Adiciona o novo registro à lista existente
-                    records = records + newRecord
+                    onAddRecord(newRecord)
                 }
             )
         }

@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-// ── Esquema Claro (o que suas telas mostram) ──────────────
 private val LightColorScheme = lightColorScheme(
     // A cor principal do app — botões primários, FAB, badges
     primary = EcoGreen,
@@ -42,8 +41,6 @@ private val LightColorScheme = lightColorScheme(
     // Contorno de botões outline (botão Login)
     outline = EcoGreenMedium,
 )
-
-// ── Esquema Escuro (opcional no MVP, mas boa prática) ─────
 private val DarkColorScheme = darkColorScheme(
     primary = EcoGreenMedium,
     onPrimary = EcoGreenDark,
@@ -53,11 +50,9 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = EcoWhite,
 )
 
-// ── Composable principal do tema ──────────────────────────
 @Composable
 fun EcoTraceTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {

@@ -37,8 +37,7 @@ val EcoGrayLight = Color(0xFFD9D9D9)
 val EcoGrayText = Color(0xFF757575)
 
 // ── Texto ─────────────────────────────────────────────────
-// Preto suave: texto principal (não use preto puro #000000,
-// é muito agressivo — esse tom é mais confortável)
+
 val EcoTextPrimary = Color(0xFF1C1C1C)
 
 // ── Navbar ────────────────────────────────────────────────

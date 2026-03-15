@@ -1,15 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "br.com.fiap.ecotrace"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "br.com.fiap.ecotrace"
@@ -17,7 +14,6 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -48,14 +44,24 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-
-    // Não precisa baixar o arquivo — Google Fonts integra direto
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.0")
-
-    implementation("androidx.compose.material:material-icons-extended-android:1.7.8")
     implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.ui.text.google.fonts)
+
+    // Ícones
+    implementation("androidx.compose.material:material-icons-extended-android:1.7.8")
+
+    // Gráfico
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // Navegação
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

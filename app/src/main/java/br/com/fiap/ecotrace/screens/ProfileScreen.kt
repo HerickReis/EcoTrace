@@ -22,12 +22,10 @@ import com.ecotrace.navigation.Destination
 
 @Composable
 fun ProfileScreen(
-    records: List<EmissionRecord>,  // vem de fora — mesma lista do RegisterScreen
-    onNavigate: (String) -> Unit
+    records: List<EmissionRecord>,
+    onNavigate: (String) -> Unit,
+    userName: String
 ) {
-    // remember(records) recalcula as conquistas SOMENTE quando
-    // a lista de registros mudar — não a cada recomposição
-    // Isso é diferente de remember sem parâmetro
     val achievements = remember(records) {
         AchievementChecker.check(records)
     }
@@ -51,7 +49,7 @@ fun ProfileScreen(
 
             // Header com avatar e nome
             item {
-                ProfileHeader()
+                ProfileHeader(userName = userName)
             }
 
             // Seção de conquistas
@@ -110,10 +108,10 @@ fun ProfileScreen(
     }
 }
 
-// ── Header ────────────────────────────────────────────────
-
 @Composable
-private fun ProfileHeader() {
+private fun ProfileHeader(
+    userName: String
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -128,7 +126,7 @@ private fun ProfileHeader() {
             tint = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Olá, Letycia",
+            text = "Olá, $userName",
             style = MaterialTheme.typography.headlineMedium
         )
     }
@@ -136,17 +134,12 @@ private fun ProfileHeader() {
     HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
 }
 
-// ── Badge de conquista ────────────────────────────────────
-
 @Composable
 private fun AchievementBadge(achievement: Achievement) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.width(72.dp)
     ) {
-        // alpha() controla a opacidade —
-        // conquistas bloqueadas ficam transparentes (apagadas)
-        // exatamente como no seu Figma
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
             color = if (achievement.isUnlocked)
@@ -179,8 +172,6 @@ private fun AchievementBadge(achievement: Achievement) {
         )
     }
 }
-
-// ── Item do histórico ─────────────────────────────────────
 
 @Composable
 private fun RecordHistoryItem(
@@ -221,7 +212,6 @@ private fun RecordHistoryItem(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            // CO₂ destacado à direita
             Text(
                 text = "%.1f kg".format(record.cokg),
                 style = MaterialTheme.typography.titleMedium,

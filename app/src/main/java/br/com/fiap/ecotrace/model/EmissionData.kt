@@ -1,16 +1,16 @@
 package br.com.fiap.ecotrace.model
 
 data class EmissionSlice(
-    val label: String,      // "Carro", "Ônibus", "Caminhada"
-    val valueKg: Float,     // 130f, 149f, 93f
-    val color: Int          // Cor no formato Android (Int) — usaremos android.graphics.Color
+    val label: String,
+    val valueKg: Float,
+    val color: Int
 )
 
 data class EmissionData(
-    val title: String,              // "Emissão CO₂ por tipo de transporte"
+    val title: String,
     val slices: List<EmissionSlice>,
-    val totalKg: Float,             // 372f
-    val equivalenceText: String     // "isso equivale a 37 árvores jovens"
+    val totalKg: Float,
+    val equivalenceText: String
 )
 
 object MockEmissionData {

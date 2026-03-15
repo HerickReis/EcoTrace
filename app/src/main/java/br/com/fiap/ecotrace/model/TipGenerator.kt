@@ -16,15 +16,12 @@ object TipGenerator {
             it.category == EmissionCategory.TRANSPORT && it.type == "Bicicleta"
         }
 
-        // Todas as dicas possíveis com prioridade dinâmica
-        // Prioridade menor = aparece primeiro
         val tips = mutableListOf<Tip>()
 
         tips.add(Tip(
             title = "Troque o carro pelo transporte público",
             description = "O ônibus emite até 60% menos CO₂ por passageiro do que o carro particular. Uma simples mudança de hábito pode reduzir sua pegada significativamente.",
             category = EmissionCategory.TRANSPORT,
-            // Quem usa muito carro vê essa dica primeiro
             priority = if (carUsage >= 3) 1 else 5
         ))
 
@@ -39,7 +36,6 @@ object TipGenerator {
             title = "Parabéns por usar a bicicleta!",
             description = "Ciclistas urbanos evitam em média 150kg de CO₂ por ano. Continue assim — você está no caminho certo.",
             category = EmissionCategory.TRANSPORT,
-            // Só mostra com alta prioridade pra quem já pedala
             priority = if (bikeUsage >= 1) 2 else 8
         ))
 
@@ -64,7 +60,6 @@ object TipGenerator {
             priority = if (carUsage >= 2) 3 else 7
         ))
 
-        // Ordena por prioridade — mais relevante primeiro
         return tips.sortedBy { it.priority }
     }
 }

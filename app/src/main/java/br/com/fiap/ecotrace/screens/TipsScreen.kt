@@ -1,12 +1,32 @@
 package br.com.fiap.ecotrace.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Restaurant
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,15 +35,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.filled.DirectionsCar
-import androidx.compose.material.icons.filled.Restaurant
 import br.com.fiap.ecotrace.components.BottomNavBar
-import com.ecotrace.navigation.Destination
 import br.com.fiap.ecotrace.components.EmissionRecord
 import br.com.fiap.ecotrace.model.EmissionCategory
 import br.com.fiap.ecotrace.model.TipGenerator
+import com.ecotrace.navigation.Destination
 
 @Composable
 fun TipsScreen(
@@ -55,7 +71,26 @@ fun TipsScreen(
                 .padding(innerPadding)
         ) {
 
-            // Banner carrossel
+        item {
+            if (records.isEmpty()) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
+                ) {
+                    Text(
+                        text = "💡 Faça seu primeiro registro para receber dicas personalizadas!",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(16.dp),
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
+        }
+
             item {
                 BannerCarousel(
                     tips = tips.take(3),
@@ -63,7 +98,6 @@ fun TipsScreen(
                 )
             }
 
-            // Separador com título
             item {
                 Row(
                     modifier = Modifier
@@ -92,16 +126,12 @@ fun TipsScreen(
     }
 }
 
-// ── Banner Carrossel ──────────────────────────────────────
-
 @Composable
 private fun BannerCarousel(
     tips: List<br.com.fiap.ecotrace.model.Tip>,
     pagerState: androidx.compose.foundation.pager.PagerState
 ) {
     Column {
-        // HorizontalPager é o componente de carrossel do Compose
-        // Cada "página" é um bloco dentro do lambda
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
@@ -111,8 +141,6 @@ private fun BannerCarousel(
             BannerPage(tip = tips[pageIndex])
         }
 
-        // Indicadores de página (pontinhos)
-        // pagerState.currentPage diz qual página está ativa
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -136,14 +164,12 @@ private fun BannerCarousel(
     }
 }
 
+
 @Composable
 private fun BannerPage(tip: br.com.fiap.ecotrace.model.Tip) {
-    // Box empilha o gradiente sobre o fundo colorido
-    // simulando o efeito de imagem com texto sobreposto do seu Figma
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        // Fundo — gradiente verde simulando a foto de floresta
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -156,8 +182,6 @@ private fun BannerPage(tip: br.com.fiap.ecotrace.model.Tip) {
                     )
                 )
         )
-
-        // Texto sobre o banner
         Column(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -172,8 +196,6 @@ private fun BannerPage(tip: br.com.fiap.ecotrace.model.Tip) {
         }
     }
 }
-
-// ── Card educativo ────────────────────────────────────────
 
 @Composable
 private fun TipCard(

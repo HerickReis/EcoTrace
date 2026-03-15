@@ -32,7 +32,9 @@ fun DonutChartCard(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
 
-            // Título do card
+            val filteredSlices = emissionData.slices.filter { it.valueKg > 0f }
+            val safeTotal = if (emissionData.totalKg > 0f) emissionData.totalKg else 1f
+
             Text(
                 text = emissionData.title,
                 style = MaterialTheme.typography.titleLarge,
@@ -40,11 +42,8 @@ fun DonutChartCard(
                 modifier = Modifier.padding(bottom = 12.dp)
             )
 
-            // AndroidView — aqui mora o gráfico MPAndroidChart
-            // O Compose reserva 220dp de altura e entrega para a View
             AndroidView(
                 factory = { context ->
-                    // factory roda UMA vez — cria e configura o gráfico
                     PieChart(context).apply {
                         // Aparência geral
                         description.isEnabled = false   // remove label "Description"
@@ -56,7 +55,6 @@ fun DonutChartCard(
                         setCenterTextSize(16f)
                         setCenterTextTypeface(Typeface.DEFAULT_BOLD)
 
-                        // Remove a legenda de canto - legenda personalizada
                         legend.isEnabled = false
 
                         // Remove animação de toque
@@ -64,22 +62,15 @@ fun DonutChartCard(
                         setTouchEnabled(false)
                     }
                 },
+
                 update = { pieChart ->
-                    // atualiza a  roda quando os dados mudam
-                    // Converte EmissionSlice para PieEntry (formato do MPAndroidChart)
-                    val entries = emissionData.slices.map { slice ->
-                        PieEntry(slice.valueKg, slice.label)
-                    }
-
-                    val colors = emissionData.slices.map { it.color }
-
+                    val entries = filteredSlices.map { PieEntry(it.valueKg, it.label) }
+                    val colors = filteredSlices.map { it.color }
                     val dataSet = PieDataSet(entries, "").apply {
                         this.colors = colors
-                        sliceSpace = 2f          // espaço entre fatias
-                        valueTextSize = 11f
-                        valueTextColor = android.graphics.Color.WHITE
+                        sliceSpace = 2f
+                        setDrawValues(false)
                     }
-
                     pieChart.data = PieData(dataSet)
                     pieChart.invalidate()
                 },
@@ -95,7 +86,7 @@ fun DonutChartCard(
                     .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                emissionData.slices.forEach { slice ->
+                filteredSlices.forEach { slice ->
                     LegendItem(
                         label = slice.label,
                         percentage = "${((slice.valueKg / emissionData.totalKg) * 100).toInt()}%",
